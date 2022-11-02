@@ -22,9 +22,14 @@
   {
     path: '/admin',
     name: 'admin',
+    // redirect: '/admin/sub-page',
     icon: 'crown',
     access: 'canAdmin',
     routes: [
+      {
+        path: '/admin',
+        redirect: '/admin/sub-page',
+      },
       {
         path: '/admin/sub-page',
         name: 'sub-page',

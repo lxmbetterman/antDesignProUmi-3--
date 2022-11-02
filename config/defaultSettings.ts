@@ -6,7 +6,7 @@ const Settings: LayoutSettings & {
 } = {
   navTheme: 'light',
   // 拂晓蓝
-  primaryColor: '#1890ff',
+  primaryColor: 'red',
   layout: 'mix',
   contentWidth: 'Fluid',
   fixedHeader: false,
@@ -16,6 +16,10 @@ const Settings: LayoutSettings & {
   pwa: false,
   logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   iconfontUrl: '',
+  menu: {
+    type: 'sub',
+  },
+  splitMenus: true,
 };
 
 export default Settings;
