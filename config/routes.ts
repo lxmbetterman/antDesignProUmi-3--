@@ -6,6 +6,7 @@
       {
         name: 'login',
         path: '/user/login',
+        // component: './user/LoginTest',
         component: './user/Login',
       },
       {
@@ -35,6 +36,44 @@
         name: 'sub-page',
         icon: 'smile',
         component: './Welcome',
+      },
+      {
+        component: './404',
+      },
+    ],
+  },
+  {
+    path: '/test',
+    name: 'test',
+    icon: 'crown',
+    routes: [
+      {
+        path: '/test',
+        redirect: '/test/page1',
+      },
+      {
+        path: '/test/page1',
+        name: 'sub-page1',
+        icon: 'smile',
+        component: './MyTestPage/Page1',
+      },
+      {
+        path: '/test/page2',
+        name: 'sub-page2',
+        icon: 'smile',
+        component: './MyTestPage/Page2',
+      },
+      {
+        path: '/test/page3',
+        name: 'sub-page3',
+        icon: 'smile',
+        component: './MyTestPage/Page3',
+      },
+      {
+        path: '/test/page4Form',
+        name: 'sub-page4Form',
+        icon: 'smile',
+        component: './MyTestPage/Page4Form',
       },
       {
         component: './404',

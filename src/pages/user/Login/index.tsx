@@ -81,6 +81,8 @@ const Login: React.FC = () => {
   };
   const { status, type: loginType } = userLoginState;
 
+  const RN = <div>this is ReactNode</div>;
+
   return (
     <div className={styles.container}>
       <div className={styles.lang} data-lang>
@@ -103,6 +105,7 @@ const Login: React.FC = () => {
             <AlipayCircleOutlined key="AlipayCircleOutlined" className={styles.icon} />,
             <TaobaoCircleOutlined key="TaobaoCircleOutlined" className={styles.icon} />,
             <WeiboCircleOutlined key="WeiboCircleOutlined" className={styles.icon} />,
+            RN,
           ]}
           onFinish={async (values) => {
             await handleSubmit(values as API.LoginParams);
@@ -116,13 +119,13 @@ const Login: React.FC = () => {
                 defaultMessage: '账户密码登录',
               })}
             />
-            <Tabs.TabPane
+            {/* <Tabs.TabPane
               key="mobile"
               tab={intl.formatMessage({
                 id: 'pages.login.phoneLogin.tab',
                 defaultMessage: '手机号登录',
               })}
-            />
+            /> */}
           </Tabs>
 
           {status === 'error' && loginType === 'account' && (
