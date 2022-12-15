@@ -1,5 +1,7 @@
 // 表单方法调用
-// 通过 Form.useForm 对表单数据域进行交互。
+// 通过 Form.useForm 对表单数据域进行交互。（推荐）<表单属性： form={form} >
+// 如果是在class component组件下，可以用formRef = React.createRef<FormInstance>();
+// <表单属性：ref={this.formRef}>
 
 /**
  *  - noStyle 用于包裹嵌套的 Form.Item
@@ -7,10 +9,11 @@
  *  - shouldUpdate  判断Form.Item 是否重新渲染
  *  - utoComplete={'off'} 表单不填充
  *  - const form2 = Form.useFormInstance(); 表单组件的子组件内部，直接获取上下文表单的实例对象
+ *  - form.getFieldsValue() 获取表单数据对象
  */
 
 import { Button, Form, Input, Select } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 const { Option } = Select;
 
@@ -53,6 +56,18 @@ const App: React.FC = () => {
     });
   };
 
+  useEffect(() => {
+    // 初始化表单值
+    form.setFieldsValue({
+      note: 'Hello world!',
+      gender: 'male',
+    });
+    return () => {
+      // alert(2);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const Sub = () => {
     const form2 = Form.useFormInstance(); // 与const [form] = Form.useForm(); 同一个实例对象
 
@@ -60,7 +75,15 @@ const App: React.FC = () => {
   };
 
   return (
-    <Form {...layout} form={form} name="control-hooks" onFinish={onFinish} autoComplete={'off'}>
+    <Form
+      {...layout}
+      form={form}
+      name="control-hooks"
+      onFinish={onFinish}
+      autoComplete={'off'}
+      layout={'horizontal'}
+      component={false}
+    >
       <Form.Item name="note" label="Note" rules={[{ required: true }]}>
         <Input />
       </Form.Item>
@@ -75,10 +98,9 @@ const App: React.FC = () => {
           <Option value="other">other</Option>
         </Select>
       </Form.Item>
-      <Form.Item
-        noStyle
-        shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender}
-      >
+
+      {/* shouldUpdate={(prevValues, currentValues) => prevValues.gender !== currentValues.gender} */}
+      <Form.Item noStyle>
         {({ getFieldValue }) =>
           getFieldValue('gender') === 'other' ? (
             <Form.Item name="customizeGender" label="Customize Gender" rules={[{ required: true }]}>
@@ -87,13 +109,32 @@ const App: React.FC = () => {
           ) : null
         }
       </Form.Item>
-      <Form.Item shouldUpdate={true}>
+      <Form.Item
+        shouldUpdate={(prevValues, currentValues) => {
+          console.log(prevValues, 'YYYYY');
+          console.log(currentValues, '!!!!!qq');
+          return true;
+        }}
+      >
         {(a) => {
           console.log(a, '111');
           return <pre>{JSON.stringify(form.getFieldsValue(), null, 4)}</pre>;
         }}
       </Form.Item>
-
+      <Form.Item>
+        <Select
+          dropdownRender={() => (
+            <div
+              onMouseDown={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              Some Content
+            </div>
+          )}
+        />
+      </Form.Item>
       <Form.Item {...tailLayout}>
         <Button type="primary" htmlType="submit">
           Submit
