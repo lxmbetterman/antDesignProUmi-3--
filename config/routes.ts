@@ -6,8 +6,8 @@
       {
         name: 'login',
         path: '/user/login',
-        // component: './user/LoginTest',
-        component: './user/Login',
+        component: './user/LoginTest',
+        // component: './user/Login',
       },
       {
         component: './404',

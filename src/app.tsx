@@ -8,6 +8,9 @@ import { history, Link } from 'umi';
 import defaultSettings from '../config/defaultSettings';
 import { currentUser as queryCurrentUser } from './services/ant-design-pro/api';
 
+// fetch 全局配置
+import { useFetchConfig as UseFetchConfig } from '@/hooks/fetch';
+
 const isDev = process.env.NODE_ENV === 'development';
 const loginPath = '/user/login';
 
@@ -89,9 +92,15 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
     // unAccessible: <div>unAccessible</div>,
     // 增加一个 loading 的状态
     childrenRender: (children, props) => {
-      // if (initialState?.loading) return <PageLoading />;
+      if (initialState?.loading) return <PageLoading />;
       return (
-        <>
+        <UseFetchConfig
+          value={{
+            fetcher: () => {
+              console.log(121113);
+            },
+          }}
+        >
           {children}
           {!props.location?.pathname?.includes('/login') && (
             <SettingDrawer
@@ -107,7 +116,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState, setInitialState }) =
               }}
             />
           )}
-        </>
+        </UseFetchConfig>
       );
     },
 
