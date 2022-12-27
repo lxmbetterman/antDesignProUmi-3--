@@ -76,6 +76,12 @@
         component: './MyTestPage/Page4Form',
       },
       {
+        path: '/test/Page4TablePro',
+        name: 'sub-page4TablePro',
+        icon: 'smile',
+        component: './MyTestPage/Page4TablePro',
+      },
+      {
         component: './404',
       },
     ],
